@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  api:
+    build: .
+    command: npm run dev
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "3000:3000"
+  mariadb:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: banking
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - mysqldata:/var/lib/mysql
+volumes:
+  mysqldata:
