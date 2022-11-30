@@ -113,7 +113,8 @@ app.post('/login', async (req, res, next) => {
         username,
       },
     })
-  } catch {
+  } catch (e) {
+    console.log('<<<<<', e)
     const error = new Error("Error! Something went wrong.");
     return next(error);
   }
