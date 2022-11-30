@@ -20,6 +20,7 @@ app.post('/tranfer', auth, async (req, res) => {
         accountId
       }
     })
+    console.log({ account })
 
     const totalBalance = account.balance - _transactionAmount
 
@@ -99,6 +100,24 @@ app.post('/open_account', auth, async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({ err: "An error occured" });
+  }
+})
+
+app.get('/history', auth, async (req, res) => {
+  const { accountId } = req.body
+
+  try {
+    const transactions = await prisma.transaction.findMany({
+      where: {
+        accountId
+      }
+    })
+    console.log({ transactions })
+
+    return res.json(transactions)
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ err: "An error occured" })
   }
 })
 
