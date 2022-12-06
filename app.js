@@ -3,12 +3,15 @@ const app = express()
 const port = 3000
 const jwt = require('jsonwebtoken')
 const auth = require("./middleware/auth")
+const cors = require('cors')
 
 const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
 app.use(express.json())
+
+app.use(cors())
 
 app.post('/tranfer', auth, async (req, res) => {
   let { accountId, transactionAmount, destinationAccount } = req.body;
