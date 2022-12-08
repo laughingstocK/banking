@@ -11,7 +11,9 @@ const prisma = new PrismaClient()
 
 app.use(express.json())
 
-app.use(cors())
+app.use(cors({
+  origin: '*'
+}));
 
 app.post('/tranfer', auth, async (req, res) => {
   let { accountId, transactionAmount, destinationAccount } = req.body;
@@ -124,10 +126,28 @@ app.get('/history', auth, async (req, res) => {
   }
 })
 
+app.get('/accounts', auth, async (req, res) => {
+  const { userId } = req.user
+
+  try {
+    const accounts = await prisma.account.findMany({
+      where: {
+        userId
+      }
+    })
+    console.log({ accounts })
+
+    return res.json(accounts)
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ err: "An error occured" })
+  }
+})
+
 // Handling post request
 app.post('/login', async (req, res, next) => {
   let { username, password } = req.body;
-
+  console.log({ username, password })
   let existingUser;
   try {
     existingUser = await prisma.user.findUnique({
