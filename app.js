@@ -144,6 +144,33 @@ app.get('/accounts', auth, async (req, res) => {
   }
 })
 
+app.get('/user', auth, async (req, res) => {
+  const { userId } = req.user
+  console.log({ userId })
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId
+      },
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        address: true,
+        username: true,
+        email: true
+      },
+    })
+    console.log({ user })
+
+    return res.json(user)
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ err: "An error occured" })
+  }
+})
+
 // Handling post request
 app.post('/login', async (req, res, next) => {
   let { username, password } = req.body;
