@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 3030
 const jwt = require('jsonwebtoken')
 const auth = require("./middleware/auth")
 const cors = require('cors')
@@ -188,7 +188,7 @@ app.post('/login', async (req, res, next) => {
     return next(error);
   }
 
-  console.log('>>>', existingUser)
+  console.log(existingUser)
 
   if (!existingUser || existingUser.password != password) {
     const error = Error("Wrong details please check at once");
@@ -215,6 +215,9 @@ app.post('/login', async (req, res, next) => {
       success: true,
       data: {
         userId: existingUser.id,
+        firstname: existingUser.firstname,
+        lastname: existingUser.lastname,
+        address: existingUser.address,
         email: existingUser.email,
         token: token,
       },
