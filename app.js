@@ -28,6 +28,9 @@ app.post('/tranfer', auth, async (req, res) => {
     console.log({ account })
 
     const totalBalance = account.balance - _transactionAmount
+    if (totalBalance < 0) {
+      return res.status(500).json({ err: "The amount in the account is less than the transaction amount." })
+    }
 
     await prisma.account.update({
       where: {
