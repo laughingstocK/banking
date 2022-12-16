@@ -111,7 +111,7 @@ app.post('/open_account', auth, async (req, res) => {
   }
 })
 
-app.get('/history', auth, async (req, res) => {
+app.get('/transactions', auth, async (req, res) => {
   const { accountId } = req.body
 
   try {
