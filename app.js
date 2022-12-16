@@ -24,6 +24,10 @@ app.post('/tranfer', auth, async (req, res) => {
 
   console.log({ _transactionAmount })
 
+  if (_transactionAmount < 0 ) {
+    return res.status(500).json({ err: "Transaction amount is less than zero" })
+  }
+
   try {
     const account = await prisma.account.findUnique({
       where: {
