@@ -6,20 +6,31 @@ services:
   #   volumes:
   #     - .:/usr/app/
   #     - /usr/app/node_modules
+  #   environment:
+  #     - DATABASE_URL=mysql://root:password@localhost:3306/banking
   #   ports:
   #     - "3000:3000"
-  mariadb:
-    image: mariadb:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: banking
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+  # mariadb:
+  #   image: mariadb:latest
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: banking
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: password
+  #   ports:
+  #     - '3306:3306'
+  #   expose:
+  #     - '3306'
+  #   volumes:
+  #     - mysqldata:/var/lib/mysql
+  nginx:
+    image: nginx:latest
+    container_name: webserver
+    restart: unless-stopped
     ports:
-      - '3306:3306'
-    expose:
-      - '3306'
+      - 80:80
+      - 443:443
     volumes:
-      - mysqldata:/var/lib/mysql
+      - /Users/krerkkiathemadhulin/Documents/banking/nginx.conf:/etc/nginx/nginx.conf
 volumes:
   mysqldata:
