@@ -18,7 +18,12 @@ app.use(cors({
 app.post('/tranfer', auth, async (req, res) => {
   let { accountId, transactionAmount, destinationAccount } = req.body;
 
+  console.log({ accountId, transactionAmount, destinationAccount })
+
   const _transactionAmount = parseFloat(transactionAmount)
+
+  console.log({ _transactionAmount })
+
   try {
     const account = await prisma.account.findUnique({
       where: {
