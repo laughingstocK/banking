@@ -123,6 +123,12 @@ app.post('/open_account', auth, async (req, res) => {
 app.get('/transactions', auth, async (req, res) => {
   const { accountId } = req.body
 
+  console.log({ accountId })
+
+  if(accountId === undefined) {
+    return res.status(400).json({ err: "Bad request" })
+  }
+
   try {
     const transactions = await prisma.transaction.findMany({
       where: {
