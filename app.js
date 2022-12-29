@@ -120,7 +120,7 @@ app.post('/open_account', auth, async (req, res) => {
   }
 })
 
-app.get('/transactions', auth, async (req, res) => {
+app.post('/transactions', auth, async (req, res) => {
   const { accountId } = req.body
 
   console.log({ accountId })
