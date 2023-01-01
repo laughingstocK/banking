@@ -15,8 +15,6 @@ const {
   register
 } = require('./src/controller/index')
 
-const prisma = new PrismaClient()
-
 app.use(express.json())
 
 app.use(cors({

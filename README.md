@@ -1,13 +1,27 @@
-# banking
+# Banking
 
-1 run database
+## Prerequisite
+* Docker
+* NodeJS
 
-```docker-compose -f docker-compose.yml up --force-recreate -d```
+## How-to-run
 
-2 migrate database
+1. run database
+
+```docker-compose -f docker-compose.yml up -d```
+
+2. Install node modules 
+
+```npm install```
+
+3. migrate database
 
 ```npx prisma migrate dev --name init```
 
-3 run api 
+4. Seed databate
+
+```npx prisma db seed --preview-feature```
+
+5. Run api 
 
 ```npm run dev```
